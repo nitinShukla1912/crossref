@@ -6,9 +6,9 @@ A Claude skill that matches a pasted bibliography against the [Crossref REST API
 |---|---|
 | ![Before](claude_cowork_before.png) | ![After](claude_cowork_after.png) |
 
-## What it does
+## Quickstart
 
-Paste a reference list. You get back a table like:
+Paste your reference list and the invoke with `/crossref`. You get back a table like:
 
 | # | original | matched | confidence | flags |
 |---|----------|---------|------------|-------|
