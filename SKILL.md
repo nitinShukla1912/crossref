@@ -11,15 +11,25 @@ Given a pasted bibliography, match every reference against Crossref (via a bundl
 
 ## Workflow
 
-### 0. Smoke-test the install (first run only)
+### 0. Bootstrap and smoke-test (first run only)
 
-Before the first batch of queries in any new session, run a single known-good DOI call to confirm the script is intact:
+Before the first batch of queries in any new session, locate the script and confirm it works. The relative path `scripts/crossref_query.py` only resolves when the working directory is the skill root, which is not always true in managed sandboxes.
+
+**(a) Resolve the script path.** 
+
+**(b) Smoke-test with a known-good DOI.** A successful call returns one JSON object with `"doi": "10.1257/jep.31.3.89"`:
 
 ```bash
 python scripts/crossref_query.py --doi "10.1257/jep.31.3.89" --extract
 ```
 
-A successful call returns one JSON object with `"doi": "10.1257/jep.31.3.89"`. If you get a `SyntaxError` (e.g. `'{' was never closed`), an import error, or a truncated traceback, the skill's `scripts/crossref_query.py` has been corrupted during installation or upload — **stop and re-install the skill** rather than batching dozens of failing queries. A known failure mode on Claude Desktop is the ZIP upload truncating the script file at ~2.8 KB; re-downloading from GitHub and re-uploading usually fixes it.
+**(c) If the smoke test fails, identify the mode and stop.** Do not silently work around a broken install by copying files or patching paths; surface the problem to the user so they can fix it once.
+
+| Symptom | Cause | What to tell the user |
+| --- | --- | --- |
+| `SyntaxError: '{' was never closed` or similar mid-file parse error | Stale sandbox view of the script, or a truncated install. The Read tool can confirm which: if Read shows the full file but bash doesn't, it's a sandbox snapshot issue; if Read also shows it truncated, the install is corrupt. | Ask them to restart the session (snapshot case) or re-install the skill from GitHub (corrupt case). |
+| `HTTP 503` / `DNS cache overflow` on the first call | Cold container networking or missing allowed-domain entry. | Retry once. If it still fails, ask the user to add `api.crossref.org` under **Settings → Capabilities → Additional allowed domains** (Claude Desktop). |
+| `ModuleNotFoundError` | Broken or partial install. | Ask them to re-install the skill from GitHub. |
 
 ### 1. Parse the pasted reference list
 
