@@ -2,9 +2,9 @@
 
 A Claude skill that matches a pasted bibliography against the [Crossref REST API](https://api.crossref.org) and returns a markdown table with canonical APA citations, DOIs, match confidence, and diff flags.
 
-![Invoking /crossref on a pasted reference list](claude_cowork.png)
-
-![Resulting table of matched references with DOIs, confidence, and flags](claude_cowork_after.png)
+| Invoking `/crossref` on a pasted list | Resulting table with DOIs, confidence, flags |
+|---|---|
+| ![Before](claude_cowork_before.png) | ![After](claude_cowork_after.png) |
 
 ## What it does
 
