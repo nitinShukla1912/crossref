@@ -103,7 +103,7 @@ For non-`journal-article` matches, label the container appropriately (`*SSRN Ele
 **Crossref data quirks to expect.**
 
 - **ALL-CAPS author surnames.** Older journal-article records (e.g. pre-2015 *Journal of Finance*, *Review of Financial Studies*) return `family` in uppercase — `BRADLEY`, `LOUGHRAN`, `REBELLO`. Title-case them before formatting.
-- **Online-first vs. print year.** The `year` field often reflects online-first publication, sometimes one year before the cited print year. Treat a one-year offset as agreement, not conflict; do not flag it.
+- **Online-first vs. print year.** The `year` field often reflects online-first publication, sometimes one year before the cited print year. Treat a one-year offset a minor conflict; but still flag it.
 - **Missing year on chapters.** Book chapters occasionally return `year: null`. Fall back to the year in the original citation.
 - **SSRN preprints dominate working-paper searches.** DOI prefix `10.2139` is Crossref-indexed while the downstream journal version may not yet be. When you match to an SSRN preprint, flag that the user may want to check whether a published version now exists.
 
