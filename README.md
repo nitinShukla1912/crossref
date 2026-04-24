@@ -4,6 +4,8 @@ A Claude skill that matches a pasted bibliography against the [Crossref REST API
 
 ![Invoking /crossref on a pasted reference list](claude_cowork.png)
 
+![Resulting table of matched references with DOIs, confidence, and flags](claude_cowork_after.png)
+
 ## What it does
 
 Paste a reference list. You get back a table like:
