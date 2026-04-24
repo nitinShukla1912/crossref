@@ -66,6 +66,8 @@ The script retries once on `429 Too Many Requests` / `503 Service Unavailable` h
 
 **Stop rules — do not over-search.** The goal is a match table, not a bibliographic investigation. Budget at most **one retry per reference**, with a reworded query. After that, record `None` and move on. Do not: guess DOI ranges, brute-force publisher DOI sequences, or run 3+ reworded queries hunting for a better hit. If the first query returns top `score` < 30 and the correct author surname does not appear in any candidate, the reference is almost certainly miscited or not indexed — stop.
 
+**Surface problems, don't paper over them.** Many pasted bibliographies — especially LLM-drafted ones — contain fabricated or garbled references. When matches fail, tell the user plainly in the `flags` column (`likely fabricated`, `author/title mismatch`, `no usable Crossref match`) and let them judge. Do **not** force a weak match just to fill the cell, and do **not** silently "correct" what looks like a citation error. If a large share of the list comes back as `None`, say so in a one-line note under the table so the user notices. The honest answer is more useful than a confidently wrong one.
+
 ### 3. Pick the best candidate
 
 In DOI mode the `--extract` array has exactly one element — use it.
@@ -148,7 +150,9 @@ Example flags:
 
 ### 7. Render the final table
 
-Output one markdown table with `| # | original | matched | confidence | flags |` columns, one row per reference, in the original input order. Do not truncate rows. Do not add explanatory prose before or after unless the user asks — just the table.
+Output one markdown table with `| # | original | matched | confidence | flags |` columns, one row per reference, in the original input order. Do not truncate rows. Do not add explanatory prose before or after — just the table.
+
+**Exception:** if more than ~10% of rows are `None` or carry a `likely fabricated` / `author mismatch` flag, add a single-line note immediately under the table alerting the user (e.g. *"7 of 51 references had no usable match — several look fabricated or miscited; worth checking before you cite them."*). This is the only prose the skill should emit around the table.
 
 ## Reference
 
