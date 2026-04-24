@@ -2,6 +2,8 @@
 
 A Claude skill that matches a pasted bibliography against the [Crossref REST API](https://api.crossref.org) and returns a markdown table with canonical APA citations, DOIs, match confidence, and diff flags.
 
+![Invoking /crossref on a pasted reference list](claude_cowork.png)
+
 ## What it does
 
 Paste a reference list. You get back a table like:
@@ -29,13 +31,11 @@ git clone https://github.com/jusi-aalto/crossref.git
 
 The skill will appear in your Skills list and can be toggled on or off. See [Use Skills in Claude](https://support.anthropic.com/en/articles/12111783-using-skills-in-claude-ai).
 
-Requires Python 3.8+ with the standard library only (no `pip install` needed).
-
 ## Use
 
 In a Claude conversation, type `/crossref` followed by your reference list, or just paste the list and ask Claude to verify it against Crossref.
 
-Under the hood, Claude calls:
+Under the hood, Claude calls these Python scripts:
 
 ```bash
 python scripts/crossref_query.py --doi "<DOI>" --extract
