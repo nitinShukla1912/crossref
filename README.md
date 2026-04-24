@@ -30,6 +30,7 @@ git clone https://github.com/jusi-aalto/crossref.git
 1. Go to **Customize → Skills**
 2. Click **+**, then **+ Create skill**
 3. Select **Upload a skill** and upload the ZIP file
+4. Go to **Settings → Capabilities → Additional allowed domains** and add `api.crossref.org`. Without this, the skill's first API call fails with `HTTP 503` or `DNS cache overflow`.
 
 The skill will appear in your Skills list and can be toggled on or off. See [Use Skills in Claude](https://support.anthropic.com/en/articles/12111783-using-skills-in-claude-ai).
 
@@ -37,7 +38,14 @@ The skill will appear in your Skills list and can be toggled on or off. See [Use
 
 In a Claude conversation, type `/crossref` followed by your reference list, or just paste the list and ask Claude to verify it against Crossref.
 
-Under the hood, Claude calls these Python scripts:
+Under the hood, Claude calls the bundled Python script. Its exact path depends on the install target:
+
+| Environment | Script path |
+| --- | --- |
+| Claude Code (cloned into `~/.claude/skills/`) | `~/.claude/skills/crossref/scripts/crossref_query.py` |
+| Claude Desktop / managed sandbox | `/mnt/skills/user/crossref/scripts/crossref_query.py` |
+
+Sample invocations:
 
 ```bash
 python scripts/crossref_query.py --doi "<DOI>" --extract
@@ -45,6 +53,15 @@ python scripts/crossref_query.py --query "<reference text>" --rows 3 --extract
 ```
 
 The `--extract` flag returns a compact JSON array of candidate records (score, authors, title, container, year, DOI, …) instead of the full Crossref payload.
+
+Skill layout:
+
+```
+crossref/
+├── SKILL.md                        workflow and matching rules
+├── scripts/crossref_query.py       thin REST API wrapper
+└── references/crossref_api.md      endpoint and rate-limit reference
+```
 
 ## Configuration
 
