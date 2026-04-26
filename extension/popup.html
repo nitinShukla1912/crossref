@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Crossref Checker</h2>
+        <textarea id="citationInput" placeholder="Paste citation here or select text on page..."></textarea>
+        <div style="display: flex; gap: 10px; margin-bottom: 16px;">
+            <button id="checkBtn" style="flex: 2;">Check Citation</button>
+            <button id="exportBtn" style="flex: 1;" class="secondary-btn hidden" disabled>Export CSV</button>
+        </div>
+        <div id="loading" class="hidden">Checking...</div>
+        <div id="results"></div>
+    </div>
+    <script src="popup.js"></script>
+</body>
+</html>

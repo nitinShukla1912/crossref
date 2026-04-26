@@ -1,0 +1,27 @@
+{
+  "manifest_version": 3,
+  "name": "Crossref Citation Checker",
+  "description": "Checks the selected generic citation text against the Crossref API.",
+  "version": "1.0",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "storage"
+  ],
+  "host_permissions": [
+    "https://api.crossref.org/*"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Check Citation"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ]
+}
