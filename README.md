@@ -15,10 +15,3 @@ A fully standalone modern Chrome Extension that allows you to easily verify cita
 4. Click **Load unpacked** and select the `/extension` directory inside this repository.
 5. Pin the **Crossref Citation Checker** extension to your toolbar.
 6. **To check citations:** Simply highlight citations on any web page and launch the extension, or open the extension and paste them manually, then click "Check Citation"!
-
-## Contributors
-* **[Nitin Shukla](https://github.com/nitinShukla1912)** - Original vision, design, architecture, and testing
-* **Antigravity AI (Google DeepMind)** - Engineering, Chrome Extension portability, and implementation
-
-## License
-MIT.
